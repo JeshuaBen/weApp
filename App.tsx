@@ -12,6 +12,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 import theme from "./src/styles/theme";
 import { useCallback } from "react";
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -34,7 +35,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <View></View>
+      <Routes />
     </ThemeProvider>
   );
 }

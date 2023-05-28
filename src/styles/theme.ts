@@ -1,5 +1,11 @@
 export default {
-  color: {},
+  colors: {
+    blue600: "#4D46E8",
+    white: "#fff",
+    black: "#000",
+    gray: "#B1ACCA",
+    background: "#FAFAFA",
+  },
   fonts: {
     primary_400: "Inter_400Regular",
     primary_500: "Inter_500Medium",
