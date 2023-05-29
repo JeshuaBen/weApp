@@ -4,7 +4,10 @@ export default {
     white: "#fff",
     black: "#000",
     gray: "#B1ACCA",
-    background: "#FAFAFA",
+    background: "#E8E8EE",
+    darkGray: "#2A2A27",
+    green: "#4cbb17",
+    gold: "#F9A603",
   },
   fonts: {
     primary_400: "Inter_400Regular",

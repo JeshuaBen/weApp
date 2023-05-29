@@ -1,12 +1,16 @@
+import { FilterRestaurants } from "../FilterRestaurants";
 import * as S from "./styles";
-import { IHeader } from "./types";
 
-export const Header: React.FC<IHeader> = ({ totalRestaurants }) => {
+export const Header: React.FC = ({}) => {
   return (
     <S.Container>
       <S.HeaderContent>
-        <S.TextLogo>We:App</S.TextLogo>
-        <S.TotalRestaurants>{`Total de ${totalRestaurants} restaurantes`}</S.TotalRestaurants>
+        <S.TextLogo>Olá, User!</S.TextLogo>
+        <FilterRestaurants />
+
+        <S.FavoriteButton>
+          <S.Favorite />
+        </S.FavoriteButton>
       </S.HeaderContent>
     </S.Container>
   );
