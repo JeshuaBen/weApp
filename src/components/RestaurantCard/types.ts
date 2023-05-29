@@ -1,4 +1,6 @@
-export interface IRestaurantCard {
+import { TouchableOpacityProps } from "react-native";
+
+export interface IRestaurantCard extends TouchableOpacityProps {
   url: string;
   name: string;
   restaurantType: string;

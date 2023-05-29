@@ -36,15 +36,15 @@ export const RestaurantImage = styled.Image`
 export const Details = styled.View``;
 
 export const RestaurantName = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.secondary_600};
+  font-family: ${({ theme }) => theme.fonts.secondary_700};
   font-size: ${RFValue(17)}px;
   color: ${({ theme }) => theme.colors.blue600};
   margin-bottom: 4px;
 `;
 
 export const RestaurantType = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.primary_500};
-  color: ${({ theme }) => theme.colors.darkGray};
+  font-family: ${({ theme }) => theme.fonts.primary_600};
+  color: ${({ theme }) => theme.colors.gray800};
 `;
 
 export const CurrencyWrapper = styled.View`
@@ -54,13 +54,13 @@ export const CurrencyWrapper = styled.View`
 `;
 
 export const CurrencyType = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.primary_500};
+  font-family: ${({ theme }) => theme.fonts.primary_600};
   color: ${({ theme }) => theme.colors.green};
 `;
 
 export const Timezone = styled.Text`
   font-family: ${({ theme }) => theme.fonts.primary_400};
-  color: ${({ theme }) => theme.colors.darkGray};
+  color: ${({ theme }) => theme.colors.gray800};
 `;
 
 export const FavoriteButton = styled(TouchableOpacity)``;

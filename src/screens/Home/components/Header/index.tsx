@@ -1,4 +1,4 @@
-import { FilterRestaurants } from "../FilterRestaurants";
+import { FilterRestaurants } from "../../../../components/FilterRestaurants";
 import * as S from "./styles";
 
 export const Header: React.FC = ({}) => {

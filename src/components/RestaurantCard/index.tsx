@@ -8,9 +8,10 @@ export const RestaurantCard: React.FC<IRestaurantCard> = ({
   restaurantType,
   currency,
   timezone,
+  ...rest
 }) => {
   return (
-    <S.Container>
+    <S.Container {...rest}>
       <S.RestaurantInfoWrapper>
         <S.RestaurantImage
           source={{

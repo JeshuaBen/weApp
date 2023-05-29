@@ -5,8 +5,13 @@ import {
   Archivo_400Regular,
   Archivo_500Medium,
   Archivo_600SemiBold,
+  Archivo_700Bold,
 } from "@expo-google-fonts/archivo";
-import { Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
+import {
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+} from "@expo-google-fonts/inter";
 
 import * as SplashScreen from "expo-splash-screen";
 
@@ -19,8 +24,10 @@ export default function App() {
     Archivo_400Regular,
     Archivo_500Medium,
     Archivo_600SemiBold,
+    Archivo_700Bold,
     Inter_400Regular,
     Inter_500Medium,
+    Inter_600SemiBold,
   });
 
   const onLayoutRootView = useCallback(async () => {

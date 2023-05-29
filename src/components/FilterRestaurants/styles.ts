@@ -12,15 +12,16 @@ export const Container = styled.View`
 `;
 
 export const Filter = styled.TextInput`
-  padding: 6px 0px 6px 12px;
+  height: 45px;
+  padding-left: 12px;
   flex: 1;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const FilterButton = styled.TouchableOpacity`
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 12px;
   margin-left: 20px;
   background-color: ${({ theme }) => theme.colors.gold};
