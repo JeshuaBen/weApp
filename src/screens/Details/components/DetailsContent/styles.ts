@@ -37,10 +37,7 @@ export const Information = styled.Text`
   font-size: ${RFValue(18)}px;
 `;
 
-export const CuisineWrapper = styled.View``;
-
 export const FavoriteButton = styled(TouchableOpacity)`
-  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 999px;
 
   padding: 2px;
@@ -51,3 +48,10 @@ export const Favorite = styled(MaterialIcons).attrs({
   size: 30,
   color: "#F9A603",
 })``;
+
+export const CuisinesWrapper = styled.View`
+  flex-direction: row;
+  gap: 16px;
+
+  flex-wrap: wrap;
+`;

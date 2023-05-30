@@ -13,7 +13,7 @@ export const ContactWrapper = styled.View`
 export const EmailWrapper = styled.View`
   flex-direction: row;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 `;
 
 export const EmailIcon = styled(Feather).attrs({
@@ -29,7 +29,7 @@ export const Email = styled.Text`
 export const PhoneWrapper = styled.View`
   flex-direction: row;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 `;
 
 export const Phone = styled(Feather).attrs({

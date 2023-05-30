@@ -14,7 +14,7 @@ export const AdressWrapper = styled.View`
 export const IconWrapper = styled.View`
   flex-direction: row;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 `;
 
 export const Icon = styled(Feather).attrs({

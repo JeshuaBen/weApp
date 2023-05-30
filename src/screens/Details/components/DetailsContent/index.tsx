@@ -1,9 +1,39 @@
-import { Text } from "react-native";
 import * as S from "./styles";
 import { Adress } from "../Adress";
 import { Contact } from "../Contact";
+import { Cuisines } from "../Cuisines";
 
 export const DetailsContent: React.FC = () => {
+  const cuisines = [
+    {
+      _id: "6092802e2e22443ca6135be3",
+      name: {
+        en: "African",
+        ptPT: "Africana",
+        ptBR: "Africana",
+      },
+      tag: "cuisine",
+    },
+    {
+      _id: "6092802e2e22443ca6135be5",
+      name: {
+        en: "Alentejana",
+        ptPT: "Alentejana",
+        ptBR: "Alentejana",
+      },
+      tag: "cuisine",
+    },
+    {
+      _id: "6092802e2e22443ca6135bea",
+      name: {
+        en: "Austrian",
+        ptPT: "Austríaco",
+        ptBR: "Austríaco",
+      },
+      tag: "cuisine",
+    },
+  ];
+
   return (
     <S.Container>
       <S.RestaurantsWrapper>
@@ -28,6 +58,11 @@ export const DetailsContent: React.FC = () => {
       <S.Separator />
 
       <S.Information>Cuisines</S.Information>
+      <S.CuisinesWrapper>
+        {cuisines.map((cuisine) => (
+          <Cuisines key={cuisine._id} portuguesePT={cuisine.name.ptPT} />
+        ))}
+      </S.CuisinesWrapper>
     </S.Container>
   );
 };
