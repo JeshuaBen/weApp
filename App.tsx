@@ -1,4 +1,3 @@
-import { View } from "react-native";
 import { ThemeProvider } from "styled-components";
 import {
   useFonts,

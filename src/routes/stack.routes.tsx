@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Home } from "../screens/Home";
 import { Details } from "../screens/Details";
+import { Favorites } from "../screens/Favorites";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -20,6 +21,7 @@ export const StackRoutes: React.FC = () => {
     >
       <Screen name="Home" component={Home} />
       <Screen name="Details" component={Details} />
+      <Screen name="Favorites" component={Favorites} />
     </Navigator>
   );
 };

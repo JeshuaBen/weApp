@@ -69,9 +69,13 @@ export const Home = ({ navigation }: HomeProps) => {
     navigation.navigate("Details", { id });
   };
 
+  const handleNavigateToFavorites = () => {
+    navigation.navigate("Favorites");
+  };
+
   return (
     <S.Container>
-      <Header />
+      <Header onNavigateFavorites={handleNavigateToFavorites} />
       <StatusBar style="light" translucent />
 
       <S.HomeContent>
