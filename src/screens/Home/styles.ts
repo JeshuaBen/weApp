@@ -2,6 +2,8 @@ import { FlatList, FlatListProps } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 import { RandomData } from ".";
+import { RestaurantData } from "../../store/ducks/restaurants/types";
+import { Restaurant } from "../../dtos/RestaurantDTO";
 
 export const Container = styled.View`
   flex: 1;
@@ -14,7 +16,7 @@ export const HomeContent = styled.View`
 `;
 
 export const RestaurantList = styled(
-  FlatList as new (props: FlatListProps<RandomData>) => FlatList<RandomData>
+  FlatList as new (props: FlatListProps<Restaurant>) => FlatList<Restaurant>
 ).attrs({
   showsVerticalScrollIndicator: false,
 })``;

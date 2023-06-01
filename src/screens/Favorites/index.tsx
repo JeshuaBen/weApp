@@ -77,6 +77,7 @@ export const Favorites = ({ navigation }: FavoriteProps) => {
       <S.FavoriteRestaurants>
         {randomData.map((restaurant) => (
           <RestaurantCard
+            key={restaurant.id}
             url={restaurant.url}
             name={restaurant.name}
             restaurantType={restaurant.restaurantType}
