@@ -9,6 +9,25 @@ export enum RestaurantTypes {
   GET_ONE_FAILURE = "@restaurant/GET_ONE_FAILURE",
 }
 
+export interface LoadRequestAction {
+  type: typeof RestaurantTypes.LOAD_REQUEST;
+  payload: {
+    offset: number;
+    limit: number;
+  };
+}
+
+export interface GetOneRequestAction {
+  type: typeof RestaurantTypes.GET_ONE_REQUEST;
+  payload: {
+    id: string;
+  };
+}
+
+export interface GetOneSuccess {
+  type: typeof RestaurantTypes.GET_ONE_SUCCESS;
+}
+
 export type RestaurantData = {
   docs: Restaurant[];
 };
@@ -16,6 +35,6 @@ export type RestaurantData = {
 export interface RestaurantState {
   readonly data: RestaurantData;
   readonly loading: boolean;
-  readonly error: boolean;
   readonly selected?: Restaurant;
+  readonly error: boolean;
 }

@@ -19,4 +19,7 @@ export const RestaurantList = styled(
   FlatList as new (props: FlatListProps<Restaurant>) => FlatList<Restaurant>
 ).attrs({
   showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    paddingBottom: 12,
+  },
 })``;

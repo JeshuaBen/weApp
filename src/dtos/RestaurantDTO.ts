@@ -18,13 +18,13 @@ export interface Restaurant {
   };
   paymentsInfo: {};
   addressInfo: {
-    adress: string;
-    city: string;
-    country: string;
+    address?: string;
+    city?: string;
+    country?: string;
   };
   contacts: {
-    email: string;
-    phoneNumber: string;
+    email?: string;
+    phoneNumber?: string;
   };
   location: {
     type: string;
@@ -37,7 +37,7 @@ export interface Restaurant {
   type: string;
   cuisines: Cuisine[];
   additionalInfo: [];
-  id: string;
+  _id: string;
   name: string;
   company: string;
   capacity: number;
@@ -56,11 +56,7 @@ export interface Restaurant {
 
 interface Cuisine {
   id: string;
-  name: {
-    en: string;
-    ptPT: string;
-    ptBR: string;
-  };
+  name: any;
   tag: string;
 }
 

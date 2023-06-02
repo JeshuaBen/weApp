@@ -8,7 +8,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  loadRequest(): void;
+  loadRequest(offset: number, limit: number): void;
   loadSuccess(data: RestaurantData): void;
   loadFailure(): void;
 }
@@ -17,3 +17,8 @@ type Props = StateProps & DispatchProps;
 
 export type HomeProps = NativeStackScreenProps<RootStackParamList, "Home"> &
   Props;
+
+export interface LoadMoreDataProps {
+  offset: number;
+  limit: number;
+}

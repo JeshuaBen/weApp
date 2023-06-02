@@ -9,8 +9,10 @@ import { Dispatch, bindActionCreators } from "@reduxjs/toolkit";
 import { ApplicationState } from "../../store";
 
 import * as RestaurantsActions from "../../store/ducks/restaurants/actions";
-import { HomeProps } from "./types";
-import { useEffect } from "react";
+import { HomeProps, LoadMoreDataProps } from "./types";
+import { useCallback, useEffect, useState } from "react";
+import { ActivityIndicator, FlatList } from "react-native";
+import { useTheme } from "styled-components";
 
 export interface RandomData {
   id: number;
@@ -22,6 +24,14 @@ export interface RandomData {
 }
 
 const Home = ({ navigation, restaurants, loadRequest, loading }: HomeProps) => {
+  const [moreDataParams, setMoreDataParams] = useState<LoadMoreDataProps>({
+    offset: 0,
+    limit: 4,
+  });
+  const [flatListRef, setFlatListRef] = useState<FlatList>();
+
+  const theme = useTheme();
+
   const handleRestaurantDetails = (id: string) => {
     navigation.navigate("Details", { id });
   };
@@ -30,8 +40,16 @@ const Home = ({ navigation, restaurants, loadRequest, loading }: HomeProps) => {
     navigation.navigate("Favorites");
   };
 
+  const loadData = useCallback(() => {
+    loadRequest(moreDataParams.offset, moreDataParams.limit);
+    setMoreDataParams({
+      offset: moreDataParams.offset + moreDataParams.limit,
+      limit: moreDataParams.limit,
+    });
+  }, [moreDataParams]);
+
   useEffect(() => {
-    loadRequest();
+    loadData();
   }, []);
 
   return (
@@ -46,15 +64,28 @@ const Home = ({ navigation, restaurants, loadRequest, loading }: HomeProps) => {
           <S.RestaurantList
             data={restaurants.docs}
             refreshing={loading}
-            keyExtractor={(item) => String(item.name)}
-            renderItem={({ item }) => (
+            onEndReached={loadData}
+            onEndReachedThreshold={0.01}
+            ListFooterComponent={
+              loading ? (
+                <ActivityIndicator size={20} color={theme.colors.blue600} />
+              ) : null
+            }
+            ListEmptyComponent={<ActivityIndicator />}
+            ref={(ref: FlatList) => setFlatListRef(ref)}
+            keyExtractor={(item, index) => String(index)}
+            renderItem={({ item, index }) => (
               <RestaurantCard
+                key={index}
                 url={item.image?.url}
                 name={item.name}
                 restaurantType={item.mealType}
                 currency={item.currencyCode}
                 timezone={item.timezone}
-                onPress={() => handleRestaurantDetails(item.id)}
+                onPress={() => {
+                  console.log("item.id", item._id);
+                  handleRestaurantDetails(item._id);
+                }}
               />
             )}
           />
