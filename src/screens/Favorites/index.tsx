@@ -3,64 +3,27 @@ import * as S from "./styles";
 import { FavoritesHeader } from "./components/FavoritesHeader";
 import { RandomData } from "../Home";
 import { RestaurantCard } from "../../components/RestaurantCard";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../routes/stack.routes";
 import { useTheme } from "styled-components";
+import { ApplicationState } from "../../store";
+import { Dispatch, bindActionCreators } from "@reduxjs/toolkit";
+import * as RestaurantsActions from "../../store/ducks/restaurants/actions";
+import { connect } from "react-redux";
+import { FavoriteProps } from "./types";
+import { useMemo } from "react";
 
-type FavoriteProps = NativeStackScreenProps<RootStackParamList, "Favorites">;
-
-export const Favorites = ({ navigation }: FavoriteProps) => {
-  const theme = useTheme();
-
-  const randomData: RandomData[] = [
-    {
-      id: 1,
-      url: "https://cdn.dev.wdtek.xyz/5ea884ff432c0893e5d4de33/restaurants/5ebd79ea7dd83e712eebd892.jpg",
-      name: "Atenas Snacks",
-      restaurantType: "Comida típica Grega",
-      currency: "EUR",
-      timezone: "Europe/Lisbon",
-    },
-    {
-      id: 2,
-      url: "https://cdn.dev.wdtek.xyz/5ea884ff432c0893e5d4de33/restaurants/5ebd7ae07dd83e0177ebd893.jpeg",
-      name: "Atenas Snacks",
-      restaurantType: "Comida típica Grega",
-      currency: "EUR",
-      timezone: "Europe/Lisbon",
-    },
-
-    {
-      id: 3,
-      url: "https://cdn.dev.wdtek.xyz/5ea884ff432c0893e5d4de33/restaurants/5ec289f4a702587e06b8ba19.webp",
-      name: "Atenas Snacks",
-      restaurantType: "Comida típica Grega",
-      currency: "EUR",
-      timezone: "Europe/Lisbon",
-    },
-
-    {
-      id: 4,
-      url: "https://cdn.dev.wdtek.xyz/5fa57ea24e61d445b51f8a31/restaurants/5fa57fcb4e61d433cd1f8a33.webp",
-      name: "Atenas Snacks",
-      restaurantType: "Comida típica Grega",
-      currency: "EUR",
-      timezone: "Europe/Lisbon",
-    },
-
-    {
-      id: 5,
-      url: "https://cdn.dev.wdtek.xyz/5ea884ff432c0893e5d4de33/restaurants/5fc10b6c4e2318d7a791b9d9.webp",
-      name: "Atenas Snacks",
-      restaurantType: "Comida típica Grega",
-      currency: "EUR",
-      timezone: "Europe/Lisbon",
-    },
-  ];
-
+const Favorites = ({
+  navigation,
+  restaurants,
+  toggleRestaurants,
+}: FavoriteProps) => {
   const handleRestaurantDetails = (id: string) => {
     navigation.navigate("Details", { id });
   };
+
+  const filterFavorites = useMemo(
+    () => restaurants.docs.filter((restaurant) => restaurant.isFavorite),
+    [restaurants]
+  );
 
   return (
     <S.Container>
@@ -75,17 +38,25 @@ export const Favorites = ({ navigation }: FavoriteProps) => {
         </S.InfoComplement>
       </S.InfoWrapper>
       <S.FavoriteRestaurants>
-        {randomData.map((restaurant) => (
+        {filterFavorites.map((restaurant) => (
           <RestaurantCard
-            url={restaurant.url}
-            name={restaurant.name}
-            restaurantType={restaurant.restaurantType}
-            currency={restaurant.currency}
-            timezone={restaurant.timezone}
-            onPress={() => handleRestaurantDetails(String(restaurant.id))}
+            key={restaurant._id}
+            data={restaurant}
+            onPress={() => handleRestaurantDetails(String(restaurant._id))}
+            toggleFavorite={() => toggleRestaurants(String(restaurant._id))}
           />
         ))}
       </S.FavoriteRestaurants>
     </S.Container>
   );
 };
+
+const mapStateToProps = (state: ApplicationState) => ({
+  restaurants: state.restaurants.data,
+  loading: state.restaurants.loading,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(RestaurantsActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

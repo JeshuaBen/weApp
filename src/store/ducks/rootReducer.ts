@@ -2,4 +2,8 @@
 
 import { combineReducers } from "redux";
 
-export default combineReducers({});
+import restaurants from "./restaurants/reducer";
+
+export default combineReducers({
+  restaurants,
+});

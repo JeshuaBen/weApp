@@ -23,6 +23,7 @@ export const RestaurantsName = styled.Text`
 
   color: ${({ theme }) => theme.colors.blue600};
   text-align: left;
+  flex: 1;
 `;
 
 export const Separator = styled.View`
@@ -39,13 +40,19 @@ export const Information = styled.Text`
 
 export const FavoriteButton = styled(TouchableOpacity)`
   border-radius: 999px;
-
+  width: 10%;
   padding: 2px;
 `;
 
 export const Favorite = styled(MaterialIcons).attrs({
   name: "star",
   size: 30,
+  color: "#F9A603",
+})``;
+
+export const FilledFavorite = styled(MaterialIcons).attrs({
+  name: "star",
+  size: 26,
   color: "#F9A603",
 })``;
 

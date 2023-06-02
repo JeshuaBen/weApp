@@ -3,9 +3,16 @@ import { Header } from "./components/Header";
 import * as S from "./styles";
 import { HomeContentWrapper } from "./components/HomeContentWrapper";
 import { RestaurantCard } from "../../components/RestaurantCard";
-import { RootStackParamList } from "../../routes/stack.routes";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
+import { connect } from "react-redux";
+import { Dispatch, bindActionCreators } from "@reduxjs/toolkit";
+import { ApplicationState } from "../../store";
+
+import * as RestaurantsActions from "../../store/ducks/restaurants/actions";
+import { HomeProps, LoadMoreDataProps } from "./types";
+import { useCallback, useEffect, useState } from "react";
+import { ActivityIndicator, FlatList } from "react-native";
+import { useTheme } from "styled-components";
 
 export interface RandomData {
   id: number;
@@ -16,54 +23,22 @@ export interface RandomData {
   timezone: string;
 }
 
-type HomeProps = NativeStackScreenProps<RootStackParamList, "Home">;
+const Home = ({
+  navigation,
+  restaurants,
+  loadRequest,
+  loading,
+  toggleFavorite,
+}: HomeProps) => {
+  const [filter, setFilter] = useState<string>("");
+  const [isFiltering, setIsFiltering] = useState<boolean>(false);
+  const [moreDataParams, setMoreDataParams] = useState<LoadMoreDataProps>({
+    offset: 0,
+    limit: 4,
+  });
+  const [flatListRef, setFlatListRef] = useState<FlatList>();
 
-export const Home = ({ navigation }: HomeProps) => {
-  const randomData: RandomData[] = [
-    {
-      id: 1,
-      url: "https://cdn.dev.wdtek.xyz/5ea884ff432c0893e5d4de33/restaurants/5ebd79ea7dd83e712eebd892.jpg",
-      name: "Atenas Snacks",
-      restaurantType: "Comida típica Grega",
-      currency: "EUR",
-      timezone: "Europe/Lisbon",
-    },
-    {
-      id: 2,
-      url: "https://cdn.dev.wdtek.xyz/5ea884ff432c0893e5d4de33/restaurants/5ebd7ae07dd83e0177ebd893.jpeg",
-      name: "Atenas Snacks",
-      restaurantType: "Comida típica Grega",
-      currency: "EUR",
-      timezone: "Europe/Lisbon",
-    },
-
-    {
-      id: 3,
-      url: "https://cdn.dev.wdtek.xyz/5ea884ff432c0893e5d4de33/restaurants/5ec289f4a702587e06b8ba19.webp",
-      name: "Atenas Snacks",
-      restaurantType: "Comida típica Grega",
-      currency: "EUR",
-      timezone: "Europe/Lisbon",
-    },
-
-    {
-      id: 4,
-      url: "https://cdn.dev.wdtek.xyz/5fa57ea24e61d445b51f8a31/restaurants/5fa57fcb4e61d433cd1f8a33.webp",
-      name: "Atenas Snacks",
-      restaurantType: "Comida típica Grega",
-      currency: "EUR",
-      timezone: "Europe/Lisbon",
-    },
-
-    {
-      id: 5,
-      url: "https://cdn.dev.wdtek.xyz/5ea884ff432c0893e5d4de33/restaurants/5fc10b6c4e2318d7a791b9d9.webp",
-      name: "Atenas Snacks",
-      restaurantType: "Comida típica Grega",
-      currency: "EUR",
-      timezone: "Europe/Lisbon",
-    },
-  ];
+  const theme = useTheme();
 
   const handleRestaurantDetails = (id: string) => {
     navigation.navigate("Details", { id });
@@ -73,29 +48,84 @@ export const Home = ({ navigation }: HomeProps) => {
     navigation.navigate("Favorites");
   };
 
+  const filterRestaurants = useCallback(() => {
+    return restaurants.docs.filter((restaurant) => {
+      return (
+        restaurant?.name?.toLowerCase().includes(filter.toLowerCase()) ||
+        restaurant?.mealType?.toLowerCase().includes(filter.toLowerCase()) ||
+        restaurant?.currencyCode
+          ?.toLowerCase()
+          .includes(filter.toLowerCase()) ||
+        restaurant?.timezone?.toLowerCase().includes(filter.toLowerCase())
+      );
+    });
+  }, [restaurants.docs, filter]);
+
+  const loadData = useCallback(() => {
+    loadRequest(moreDataParams.offset, moreDataParams.limit);
+    setMoreDataParams({
+      offset: moreDataParams.offset + moreDataParams.limit,
+      limit: moreDataParams.limit,
+    });
+  }, [moreDataParams]);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
   return (
     <S.Container>
-      <Header onNavigateFavorites={handleNavigateToFavorites} />
+      <Header
+        onNavigateFavorites={handleNavigateToFavorites}
+        filterRestaurants={filter}
+        setFilterRestaurants={setFilter}
+        onFilter={filterRestaurants}
+      />
       <StatusBar style="light" translucent />
 
       <S.HomeContent>
-        <HomeContentWrapper totalRestaurants={randomData.length} />
+        <HomeContentWrapper totalRestaurants={restaurants.docs?.length} />
 
-        <S.RestaurantList
-          data={randomData}
-          keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => (
-            <RestaurantCard
-              url={item.url}
-              name={item.name}
-              restaurantType={item.restaurantType}
-              currency={item.currency}
-              timezone={item.timezone}
-              onPress={() => handleRestaurantDetails(String(item.id))}
-            />
-          )}
-        />
+        {restaurants.docs?.length === 0 ? (
+          <S.ActivityIndicatorWrapper>
+            <ActivityIndicator size={36} color={theme.colors.blue600} />
+          </S.ActivityIndicatorWrapper>
+        ) : (
+          <S.RestaurantList
+            data={restaurants.docs}
+            refreshing={loading}
+            onEndReached={loadData}
+            onEndReachedThreshold={0.01}
+            ListFooterComponent={
+              loading ? (
+                <ActivityIndicator size={20} color={theme.colors.blue600} />
+              ) : null
+            }
+            ref={(ref: FlatList) => setFlatListRef(ref)}
+            keyExtractor={(item, index) => String(index)}
+            renderItem={({ item, index }) => (
+              <RestaurantCard
+                key={index}
+                data={item}
+                onPress={() => {
+                  handleRestaurantDetails(item._id);
+                }}
+                toggleFavorite={() => toggleFavorite(item._id)}
+              />
+            )}
+          />
+        )}
       </S.HomeContent>
     </S.Container>
   );
 };
+
+const mapStateToProps = (state: ApplicationState) => ({
+  restaurants: state.restaurants.data,
+  loading: state.restaurants.loading,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(RestaurantsActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

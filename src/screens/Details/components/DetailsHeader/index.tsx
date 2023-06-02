@@ -2,19 +2,16 @@ import * as S from "./styles";
 
 import { IDetailsHeader } from "./types";
 import { StatusBar } from "expo-status-bar";
-import { useTheme } from "styled-components";
 
 export const DetailsHeader: React.FC<IDetailsHeader> = ({
   url,
   handleGoBack,
 }) => {
-  const theme = useTheme();
-
   return (
     <S.Container
-      source={{
-        uri: url,
-      }}
+      source={
+        url ? { uri: url } : require("../../../../assets/defaultImage.png")
+      }
       resizeMode="cover"
     >
       <StatusBar

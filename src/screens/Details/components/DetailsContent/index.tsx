@@ -2,65 +2,41 @@ import * as S from "./styles";
 import { Adress } from "../Adress";
 import { Contact } from "../Contact";
 import { Cuisines } from "../Cuisines";
+import { IDetailsContent } from "./types";
 
-export const DetailsContent: React.FC = () => {
-  const cuisines = [
-    {
-      _id: "6092802e2e22443ca6135be3",
-      name: {
-        en: "African",
-        ptPT: "Africana",
-        ptBR: "Africana",
-      },
-      tag: "cuisine",
-    },
-    {
-      _id: "6092802e2e22443ca6135be5",
-      name: {
-        en: "Alentejana",
-        ptPT: "Alentejana",
-        ptBR: "Alentejana",
-      },
-      tag: "cuisine",
-    },
-    {
-      _id: "6092802e2e22443ca6135bea",
-      name: {
-        en: "Austrian",
-        ptPT: "Austríaco",
-        ptBR: "Austríaco",
-      },
-      tag: "cuisine",
-    },
-  ];
-
+export const DetailsContent: React.FC<IDetailsContent> = ({ data }) => {
   return (
     <S.Container>
       <S.RestaurantsWrapper>
-        <S.RestaurantsName>Restaurante Boa Mesa</S.RestaurantsName>
+        <S.RestaurantsName>
+          {data?.name ?? "Nome não informado"}
+        </S.RestaurantsName>
         <S.FavoriteButton>
-          <S.Favorite />
+          {data.isFavorite ? <S.FilledFavorite /> : <S.Favorite />}
         </S.FavoriteButton>
       </S.RestaurantsWrapper>
 
       <Adress
-        adress="Rua de Souza 10, Braga2"
-        city="Braga"
-        country="Portugal"
+        adress={data?.addressInfo?.address}
+        city={data?.addressInfo?.city}
+        country={data?.addressInfo?.country}
       />
 
       <S.Separator />
 
       <S.Information>Contact</S.Information>
 
-      <Contact email="guilherme.guerreiro@wedigitek.com" phone="321312312" />
+      <Contact
+        email={data?.contacts?.email}
+        phone={data?.contacts?.phoneNumber}
+      />
 
       <S.Separator />
 
       <S.Information>Cuisines</S.Information>
       <S.CuisinesWrapper>
-        {cuisines.map((cuisine) => (
-          <Cuisines key={cuisine._id} portuguesePT={cuisine.name.ptPT} />
+        {data?.cuisines?.map((cuisine, index) => (
+          <Cuisines key={index} portuguesePT={cuisine.name["pt-PT"]} />
         ))}
       </S.CuisinesWrapper>
     </S.Container>
