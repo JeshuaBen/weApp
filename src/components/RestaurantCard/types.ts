@@ -1,9 +1,7 @@
 import { TouchableOpacityProps } from "react-native";
+import { Restaurant } from "../../dtos/RestaurantDTO";
 
 export interface IRestaurantCard extends TouchableOpacityProps {
-  url?: string;
-  name: string;
-  restaurantType: string;
-  currency: string;
-  timezone: string;
+  data: Restaurant;
+  toggleFavorite(): void;
 }

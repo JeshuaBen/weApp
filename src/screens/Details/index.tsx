@@ -8,15 +8,14 @@ import * as RestaurantsActions from "../../store/ducks/restaurants/actions";
 import { connect } from "react-redux";
 import { DetailsProps } from "./types";
 import { useRoute } from "@react-navigation/native";
+import defaultImage from "../../assets/defaultImage.png";
 
-import { useEffect, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import { Restaurant } from "../../dtos/RestaurantDTO";
 
 const Details = ({ navigation, selected, getOneRequest }: DetailsProps) => {
   const route = useRoute();
   const { id } = route.params as RootStackParamList["Details"];
-
-  console.log({ id });
 
   useLayoutEffect(() => {
     getOneRequest(id);
@@ -26,10 +25,7 @@ const Details = ({ navigation, selected, getOneRequest }: DetailsProps) => {
     <S.Container>
       <DetailsHeader
         handleGoBack={() => navigation.goBack()}
-        url={
-          selected?.image?.url ??
-          "https://cwdaust.com.au/wpress/wp-content/uploads/2015/04/placeholder-restaurant.png"
-        }
+        url={selected?.image?.url as string}
       />
 
       <DetailsContent data={selected} />

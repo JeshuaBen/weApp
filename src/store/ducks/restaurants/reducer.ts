@@ -39,6 +39,24 @@ const reducer: Reducer<RestaurantState> = (
       };
     case RestaurantTypes.GET_ONE_FAILURE:
       return { ...state, loading: false, error: true, selected: undefined };
+
+    case RestaurantTypes.TOGGLE_FAVORITE:
+      const { id } = action.payload;
+      const { docs } = state.data;
+      const index = docs.findIndex((doc) => doc._id === id);
+      const doc = docs[index];
+      const newDoc = {
+        ...doc,
+        isFavorite: !doc.isFavorite,
+      };
+      docs[index] = newDoc;
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          docs,
+        },
+      };
     default:
       return state;
   }

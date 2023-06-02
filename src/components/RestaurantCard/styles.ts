@@ -1,4 +1,4 @@
-import { Feather } from "@expo/vector-icons";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
@@ -75,5 +75,11 @@ export const FavoriteButton = styled(TouchableOpacity)`
 export const Favorite = styled(Feather).attrs({
   name: "star",
   size: 23,
+  color: "#F9A603",
+})``;
+
+export const FilledFavorite = styled(MaterialIcons).attrs({
+  name: "star",
+  size: 26,
   color: "#F9A603",
 })``;

@@ -23,3 +23,6 @@ export const getOneSuccess = (selected: Restaurant): GetOneSuccess =>
   action(RestaurantTypes.GET_ONE_SUCCESS, selected);
 
 export const getOneFailure = () => action(RestaurantTypes.GET_ONE_FAILURE);
+
+export const toggleFavorite = (id: string) =>
+  action(RestaurantTypes.TOGGLE_FAVORITE, { id });

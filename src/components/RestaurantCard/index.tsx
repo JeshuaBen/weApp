@@ -3,11 +3,8 @@ import { IRestaurantCard } from "./types";
 import { Text } from "react-native";
 
 export const RestaurantCard: React.FC<IRestaurantCard> = ({
-  url,
-  name,
-  restaurantType,
-  currency,
-  timezone,
+  data,
+  toggleFavorite,
   ...rest
 }) => {
   return (
@@ -16,24 +13,24 @@ export const RestaurantCard: React.FC<IRestaurantCard> = ({
         <S.RestaurantImage
           source={{
             uri:
-              url ??
+              data?.image?.url ??
               "https://cwdaust.com.au/wpress/wp-content/uploads/2015/04/placeholder-restaurant.png",
           }}
           resizeMode="contain"
         />
         <S.Details>
-          <S.RestaurantName>{name}</S.RestaurantName>
-          <S.RestaurantType>{restaurantType}</S.RestaurantType>
+          <S.RestaurantName>{data?.name}</S.RestaurantName>
+          <S.RestaurantType>{data?.mealType}</S.RestaurantType>
           <S.CurrencyWrapper>
-            <S.Timezone>{timezone}</S.Timezone>
+            <S.Timezone>{data?.timezone}</S.Timezone>
             <Text>-</Text>
-            <S.CurrencyType>{currency}</S.CurrencyType>
+            <S.CurrencyType>{data?.currencyCode}</S.CurrencyType>
           </S.CurrencyWrapper>
         </S.Details>
       </S.RestaurantInfoWrapper>
 
-      <S.FavoriteButton>
-        <S.Favorite />
+      <S.FavoriteButton onPress={toggleFavorite}>
+        {data.isFavorite ? <S.FilledFavorite /> : <S.Favorite />}
       </S.FavoriteButton>
     </S.Container>
   );

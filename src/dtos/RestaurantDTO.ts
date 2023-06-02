@@ -13,6 +13,7 @@ export interface RestaurantDTO {
 }
 
 export interface Restaurant {
+  isFavorite?: boolean;
   subscriptions: {
     wefood: boolean;
   };

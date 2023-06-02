@@ -23,7 +23,15 @@ export interface RandomData {
   timezone: string;
 }
 
-const Home = ({ navigation, restaurants, loadRequest, loading }: HomeProps) => {
+const Home = ({
+  navigation,
+  restaurants,
+  loadRequest,
+  loading,
+  toggleFavorite,
+}: HomeProps) => {
+  const [filter, setFilter] = useState<string>("");
+  const [isFiltering, setIsFiltering] = useState<boolean>(false);
   const [moreDataParams, setMoreDataParams] = useState<LoadMoreDataProps>({
     offset: 0,
     limit: 4,
@@ -40,6 +48,19 @@ const Home = ({ navigation, restaurants, loadRequest, loading }: HomeProps) => {
     navigation.navigate("Favorites");
   };
 
+  const filterRestaurants = useCallback(() => {
+    return restaurants.docs.filter((restaurant) => {
+      return (
+        restaurant?.name?.toLowerCase().includes(filter.toLowerCase()) ||
+        restaurant?.mealType?.toLowerCase().includes(filter.toLowerCase()) ||
+        restaurant?.currencyCode
+          ?.toLowerCase()
+          .includes(filter.toLowerCase()) ||
+        restaurant?.timezone?.toLowerCase().includes(filter.toLowerCase())
+      );
+    });
+  }, [restaurants.docs, filter]);
+
   const loadData = useCallback(() => {
     loadRequest(moreDataParams.offset, moreDataParams.limit);
     setMoreDataParams({
@@ -54,13 +75,22 @@ const Home = ({ navigation, restaurants, loadRequest, loading }: HomeProps) => {
 
   return (
     <S.Container>
-      <Header onNavigateFavorites={handleNavigateToFavorites} />
+      <Header
+        onNavigateFavorites={handleNavigateToFavorites}
+        filterRestaurants={filter}
+        setFilterRestaurants={setFilter}
+        onFilter={filterRestaurants}
+      />
       <StatusBar style="light" translucent />
 
       <S.HomeContent>
         <HomeContentWrapper totalRestaurants={restaurants.docs?.length} />
 
-        {restaurants.docs?.length > 0 && (
+        {restaurants.docs?.length === 0 ? (
+          <S.ActivityIndicatorWrapper>
+            <ActivityIndicator size={36} color={theme.colors.blue600} />
+          </S.ActivityIndicatorWrapper>
+        ) : (
           <S.RestaurantList
             data={restaurants.docs}
             refreshing={loading}
@@ -71,21 +101,16 @@ const Home = ({ navigation, restaurants, loadRequest, loading }: HomeProps) => {
                 <ActivityIndicator size={20} color={theme.colors.blue600} />
               ) : null
             }
-            ListEmptyComponent={<ActivityIndicator />}
             ref={(ref: FlatList) => setFlatListRef(ref)}
             keyExtractor={(item, index) => String(index)}
             renderItem={({ item, index }) => (
               <RestaurantCard
                 key={index}
-                url={item.image?.url}
-                name={item.name}
-                restaurantType={item.mealType}
-                currency={item.currencyCode}
-                timezone={item.timezone}
+                data={item}
                 onPress={() => {
-                  console.log("item.id", item._id);
                   handleRestaurantDetails(item._id);
                 }}
+                toggleFavorite={() => toggleFavorite(item._id)}
               />
             )}
           />

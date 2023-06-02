@@ -1,5 +1,6 @@
 export interface IHomeHeader {
   onNavigateFavorites: () => void;
-  onFilterRestaurants?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  setFilterRestaurants?: (value: string) => void;
+  onFilter: () => void;
   filterRestaurants?: string;
 }

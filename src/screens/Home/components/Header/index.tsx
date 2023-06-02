@@ -4,7 +4,8 @@ import { IHomeHeader } from "./types";
 export const Header: React.FC<IHomeHeader> = ({
   onNavigateFavorites,
   filterRestaurants,
-  onFilterRestaurants,
+  setFilterRestaurants,
+  onFilter,
 }) => {
   return (
     <S.Container>
@@ -15,9 +16,9 @@ export const Header: React.FC<IHomeHeader> = ({
           <S.Filter
             placeholder="Buscar Restaurantes"
             value={filterRestaurants}
-            onChange={() => onFilterRestaurants}
+            onChangeText={setFilterRestaurants}
           />
-          <S.FilterButton>
+          <S.FilterButton onPress={onFilter}>
             <S.Search />
           </S.FilterButton>
         </S.FilterWrapper>

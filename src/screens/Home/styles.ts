@@ -15,6 +15,12 @@ export const HomeContent = styled.View`
   flex: 1;
 `;
 
+export const ActivityIndicatorWrapper = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const RestaurantList = styled(
   FlatList as new (props: FlatListProps<Restaurant>) => FlatList<Restaurant>
 ).attrs({

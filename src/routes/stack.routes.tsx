@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "../screens/Home";
 import Details from "../screens/Details";
-import { Favorites } from "../screens/Favorites";
+import Favorites from "../screens/Favorites";
 
 export type RootStackParamList = {
   Home: undefined;

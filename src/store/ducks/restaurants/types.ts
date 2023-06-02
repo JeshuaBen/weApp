@@ -7,6 +7,7 @@ export enum RestaurantTypes {
   GET_ONE_REQUEST = "@restaurant/GET_ONE_REQUEST",
   GET_ONE_SUCCESS = "@restaurant/GET_ONE_SUCCESS",
   GET_ONE_FAILURE = "@restaurant/GET_ONE_FAILURE",
+  TOGGLE_FAVORITE = "@restaurant/TOGGLE_FAVORITE",
 }
 
 export interface LoadRequestAction {

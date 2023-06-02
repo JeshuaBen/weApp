@@ -12,7 +12,7 @@ export const DetailsContent: React.FC<IDetailsContent> = ({ data }) => {
           {data?.name ?? "Nome não informado"}
         </S.RestaurantsName>
         <S.FavoriteButton>
-          <S.Favorite />
+          {data.isFavorite ? <S.FilledFavorite /> : <S.Favorite />}
         </S.FavoriteButton>
       </S.RestaurantsWrapper>
 

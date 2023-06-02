@@ -8,18 +8,13 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  loadRequest(offset: number, limit: number): void;
-  loadSuccess(data: RestaurantData): void;
-  loadFailure(): void;
-  toggleFavorite(id: string): void;
+  toggleRestaurants: (id: string) => void;
 }
 
 type Props = StateProps & DispatchProps;
 
-export type HomeProps = NativeStackScreenProps<RootStackParamList, "Home"> &
+export type FavoriteProps = NativeStackScreenProps<
+  RootStackParamList,
+  "Favorites"
+> &
   Props;
-
-export interface LoadMoreDataProps {
-  offset: number;
-  limit: number;
-}

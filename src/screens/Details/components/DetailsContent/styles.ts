@@ -50,6 +50,12 @@ export const Favorite = styled(MaterialIcons).attrs({
   color: "#F9A603",
 })``;
 
+export const FilledFavorite = styled(MaterialIcons).attrs({
+  name: "star",
+  size: 26,
+  color: "#F9A603",
+})``;
+
 export const CuisinesWrapper = styled.View`
   flex-direction: row;
   gap: 16px;
