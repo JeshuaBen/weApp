@@ -10,7 +10,7 @@ export const Container = styled(TouchableOpacity)`
   justify-content: space-between;
   align-items: center;
 
-  padding: 24px 24px 24px 12px;
+  padding: 24px 32px 24px 12px;
 
   margin-bottom: 16px;
 
@@ -25,13 +25,19 @@ export const RestaurantInfoWrapper = styled.View`
 `;
 
 export const RestaurantImage = styled.Image`
+  width: 20%;
   width: 75px;
   height: 75px;
   border-radius: 999px;
   margin-right: 16px;
 `;
 
-export const Details = styled.View``;
+export const Details = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+`;
 
 export const RestaurantName = styled.Text`
   font-family: ${({ theme }) => theme.fonts.secondary_700};
@@ -47,7 +53,7 @@ export const RestaurantType = styled.Text`
 
 export const CurrencyWrapper = styled.View`
   flex-direction: row;
-  justify-content: space-between;
+  gap: 12px;
   margin: 2px;
 `;
 
@@ -61,7 +67,10 @@ export const Timezone = styled.Text`
   color: ${({ theme }) => theme.colors.gray800};
 `;
 
-export const FavoriteButton = styled(TouchableOpacity)``;
+export const FavoriteButton = styled(TouchableOpacity)`
+  width: 10%;
+  align-items: flex-start;
+`;
 
 export const Favorite = styled(Feather).attrs({
   name: "star",

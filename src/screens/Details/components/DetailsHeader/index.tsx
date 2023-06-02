@@ -8,8 +8,6 @@ export const DetailsHeader: React.FC<IDetailsHeader> = ({
   url,
   handleGoBack,
 }) => {
-  const theme = useTheme();
-
   return (
     <S.Container
       source={{

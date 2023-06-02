@@ -30,8 +30,6 @@ const Home = ({ navigation, restaurants, loadRequest, loading }: HomeProps) => {
     navigation.navigate("Favorites");
   };
 
-  console.log("PRINTANDO", restaurants);
-  console.log("loading", loading);
   useEffect(() => {
     loadRequest();
   }, []);
@@ -47,6 +45,7 @@ const Home = ({ navigation, restaurants, loadRequest, loading }: HomeProps) => {
         {restaurants.docs?.length > 0 && (
           <S.RestaurantList
             data={restaurants.docs}
+            refreshing={loading}
             keyExtractor={(item) => String(item.name)}
             renderItem={({ item }) => (
               <RestaurantCard

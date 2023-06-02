@@ -15,7 +15,9 @@ export const RestaurantCard: React.FC<IRestaurantCard> = ({
       <S.RestaurantInfoWrapper>
         <S.RestaurantImage
           source={{
-            uri: url,
+            uri:
+              url ??
+              "https://cwdaust.com.au/wpress/wp-content/uploads/2015/04/placeholder-restaurant.png",
           }}
           resizeMode="contain"
         />
