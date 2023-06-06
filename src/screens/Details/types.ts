@@ -11,6 +11,7 @@ interface DispatchProps {
   getOneRequest(id: string): void;
   getOneSuccess(data: Restaurant): void;
   loadFailure(): void;
+  toggleFavorite(id: string): void;
 }
 
 type Props = StateProps & DispatchProps;

@@ -5,6 +5,7 @@ import { Text } from "react-native";
 export const RestaurantCard: React.FC<IRestaurantCard> = ({
   data,
   toggleFavorite,
+  disabled,
   ...rest
 }) => {
   return (
@@ -29,7 +30,7 @@ export const RestaurantCard: React.FC<IRestaurantCard> = ({
         </S.Details>
       </S.RestaurantInfoWrapper>
 
-      <S.FavoriteButton onPress={toggleFavorite}>
+      <S.FavoriteButton onPress={toggleFavorite} disabled={disabled}>
         {data.isFavorite ? <S.FilledFavorite /> : <S.Favorite />}
       </S.FavoriteButton>
     </S.Container>

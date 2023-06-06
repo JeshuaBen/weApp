@@ -35,7 +35,10 @@ const reducer: Reducer<RestaurantState> = (
         ...state,
         loading: false,
         error: false,
-        selected: action.payload,
+        selected: {
+          ...action.payload,
+          isFavorite: false,
+        },
       };
     case RestaurantTypes.GET_ONE_FAILURE:
       return { ...state, loading: false, error: true, selected: undefined };
@@ -49,14 +52,24 @@ const reducer: Reducer<RestaurantState> = (
         ...doc,
         isFavorite: !doc.isFavorite,
       };
-      docs[index] = newDoc;
+
+      const updatedDocs = [...docs];
+      updatedDocs[index] = newDoc;
+
+      const selected =
+        state.selected && state.selected?._id === id
+          ? { ...state.selected, isFavorite: newDoc.isFavorite }
+          : state.selected;
+
       return {
         ...state,
         data: {
           ...state.data,
-          docs,
+          docs: updatedDocs,
         },
+        selected,
       };
+
     default:
       return state;
   }

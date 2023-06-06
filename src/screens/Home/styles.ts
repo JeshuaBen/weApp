@@ -1,8 +1,7 @@
 import { FlatList, FlatListProps } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+
 import styled from "styled-components/native";
-import { RandomData } from ".";
-import { RestaurantData } from "../../store/ducks/restaurants/types";
+
 import { Restaurant } from "../../dtos/RestaurantDTO";
 
 export const Container = styled.View`

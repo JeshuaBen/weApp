@@ -4,15 +4,20 @@ import { Contact } from "../Contact";
 import { Cuisines } from "../Cuisines";
 import { IDetailsContent } from "./types";
 
-export const DetailsContent: React.FC<IDetailsContent> = ({ data }) => {
+export const DetailsContent: React.FC<IDetailsContent> = ({
+  data,
+  toggleFavorite,
+}) => {
+  console.log(data?.isFavorite);
+
   return (
     <S.Container>
       <S.RestaurantsWrapper>
         <S.RestaurantsName>
           {data?.name ?? "Nome não informado"}
         </S.RestaurantsName>
-        <S.FavoriteButton>
-          {data.isFavorite ? <S.FilledFavorite /> : <S.Favorite />}
+        <S.FavoriteButton onPress={() => toggleFavorite(data._id)}>
+          {data?.isFavorite ? <S.FilledFavorite /> : <S.Favorite />}
         </S.FavoriteButton>
       </S.RestaurantsWrapper>
 

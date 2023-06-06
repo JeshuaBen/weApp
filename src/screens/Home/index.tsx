@@ -14,15 +14,6 @@ import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, FlatList } from "react-native";
 import { useTheme } from "styled-components";
 
-export interface RandomData {
-  id: number;
-  url: string;
-  name: string;
-  restaurantType: string;
-  currency: string;
-  timezone: string;
-}
-
 const Home = ({
   navigation,
   restaurants,

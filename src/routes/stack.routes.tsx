@@ -20,7 +20,7 @@ export const StackRoutes: React.FC = () => {
       initialRouteName="Home"
     >
       <Screen name="Home" component={Home} />
-      <Screen name="Details" component={Details as any} />
+      <Screen name="Details" component={Details} />
       <Screen name="Favorites" component={Favorites as any} />
     </Navigator>
   );

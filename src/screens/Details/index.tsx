@@ -8,12 +8,16 @@ import * as RestaurantsActions from "../../store/ducks/restaurants/actions";
 import { connect } from "react-redux";
 import { DetailsProps } from "./types";
 import { useRoute } from "@react-navigation/native";
-import defaultImage from "../../assets/defaultImage.png";
 
 import { useLayoutEffect } from "react";
 import { Restaurant } from "../../dtos/RestaurantDTO";
 
-const Details = ({ navigation, selected, getOneRequest }: DetailsProps) => {
+const Details = ({
+  navigation,
+  selected,
+  getOneRequest,
+  toggleFavorite,
+}: DetailsProps) => {
   const route = useRoute();
   const { id } = route.params as RootStackParamList["Details"];
 
@@ -28,7 +32,7 @@ const Details = ({ navigation, selected, getOneRequest }: DetailsProps) => {
         url={selected?.image?.url as string}
       />
 
-      <DetailsContent data={selected} />
+      <DetailsContent data={selected} toggleFavorite={toggleFavorite} />
     </S.Container>
   );
 };

@@ -1,9 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import * as S from "./styles";
 import { FavoritesHeader } from "./components/FavoritesHeader";
-import { RandomData } from "../Home";
+
 import { RestaurantCard } from "../../components/RestaurantCard";
-import { useTheme } from "styled-components";
+
 import { ApplicationState } from "../../store";
 import { Dispatch, bindActionCreators } from "@reduxjs/toolkit";
 import * as RestaurantsActions from "../../store/ducks/restaurants/actions";
@@ -44,6 +44,7 @@ const Favorites = ({
             data={restaurant}
             onPress={() => handleRestaurantDetails(String(restaurant._id))}
             toggleFavorite={() => toggleRestaurants(String(restaurant._id))}
+            disabled={restaurant.isFavorite}
           />
         ))}
       </S.FavoriteRestaurants>
