@@ -2,10 +2,10 @@
 
 import { createStore, Store as StoreType } from "redux";
 import rootReducer from "./ducks/rootReducer";
-import { RestaurantState } from "./ducks/restaurants/types";
+import { RestaurantState } from "./ducks/restaurants/reducer/types";
 import { StateType } from "typesafe-actions";
 import createSagaMiddleware from "redux-saga";
-import rootSaga from "./ducks/restaurants/sagas";
+import rootSaga from "./ducks/rootSaga";
 import { applyMiddleware } from "@reduxjs/toolkit";
 
 export interface ApplicationState {

@@ -1,8 +1,12 @@
 import { call, put } from "redux-saga/effects";
-import api from "../../../../../services/api";
-import { getOneFailure, getOneSuccess } from "../../actions";
-import { Restaurant } from "../../../../../dtos/RestaurantDTO";
-import { GetOneRequestAction } from "../../types";
+
+import {
+  getOneFailure,
+  getOneSuccess,
+} from "../../restaurants/reducer/actions";
+
+import { GetOneRequestAction } from "../../restaurants/reducer/types";
+import api from "../../../../services/api";
 
 export function* getOne(action: GetOneRequestAction): Generator {
   const { id } = action.payload;

@@ -1,4 +1,4 @@
-import { Restaurant } from "../../../dtos/RestaurantDTO";
+import { Restaurant } from "../../../../dtos/RestaurantDTO";
 
 export enum RestaurantTypes {
   LOAD_REQUEST = "@restaurant/LOAD_REQUEST",

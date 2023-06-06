@@ -4,7 +4,7 @@ import { RootStackParamList } from "../../routes/stack.routes";
 import { DetailsContent } from "./components/DetailsContent";
 import { ApplicationState } from "../../store";
 import { Dispatch, bindActionCreators } from "@reduxjs/toolkit";
-import * as RestaurantsActions from "../../store/ducks/restaurants/actions";
+import * as RestaurantsActions from "../../store/ducks/restaurants/reducer/actions";
 import { connect } from "react-redux";
 import { DetailsProps } from "./types";
 import { useRoute } from "@react-navigation/native";

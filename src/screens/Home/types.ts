@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes/stack.routes";
-import { RestaurantData } from "../../store/ducks/restaurants/types";
+import { RestaurantData } from "../../store/ducks/restaurants/reducer/types";
 
 interface StateProps {
   restaurants: RestaurantData;

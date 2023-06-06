@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { Dispatch, bindActionCreators } from "@reduxjs/toolkit";
 import { ApplicationState } from "../../store";
 
-import * as RestaurantsActions from "../../store/ducks/restaurants/actions";
+import * as RestaurantsActions from "../../store/ducks/restaurants/reducer/actions";
 import { HomeProps, LoadMoreDataProps } from "./types";
 import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, FlatList } from "react-native";

@@ -6,7 +6,7 @@ import {
   GetOneRequestAction,
   GetOneSuccess,
 } from "./types";
-import { Restaurant } from "../../../dtos/RestaurantDTO";
+import { Restaurant } from "../../../../dtos/RestaurantDTO";
 
 export const loadRequest = (offset: number, limit: number): LoadRequestAction =>
   action(RestaurantTypes.LOAD_REQUEST, { offset, limit });

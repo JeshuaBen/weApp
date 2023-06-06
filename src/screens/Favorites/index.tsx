@@ -6,7 +6,7 @@ import { RestaurantCard } from "../../components/RestaurantCard";
 
 import { ApplicationState } from "../../store";
 import { Dispatch, bindActionCreators } from "@reduxjs/toolkit";
-import * as RestaurantsActions from "../../store/ducks/restaurants/actions";
+import * as RestaurantsActions from "../../store/ducks/restaurants/reducer/actions";
 import { connect } from "react-redux";
 import { FavoriteProps } from "./types";
 import { useMemo } from "react";

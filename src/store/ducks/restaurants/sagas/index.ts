@@ -1,8 +1,11 @@
-// Here where we are going to set the combined tasks from saga
+import { takeLatest } from "redux-saga/effects";
+import { RestaurantTypes } from "../../restaurants/reducer/types";
+import { getAll } from "./getAll";
+import { getOne } from "./getOne";
 
-import { all } from "redux-saga/effects";
-import RestaurantTasks from "./restaurant/index";
+const tasks = [
+  takeLatest(RestaurantTypes.LOAD_REQUEST, getAll),
+  takeLatest(RestaurantTypes.GET_ONE_REQUEST, getOne),
+];
 
-export default function* rootSaga(): Generator {
-  return yield all([...RestaurantTasks]);
-}
+export default tasks;

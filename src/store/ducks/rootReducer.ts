@@ -2,7 +2,7 @@
 
 import { combineReducers } from "redux";
 
-import restaurants from "./restaurants/reducer";
+import restaurants from "./restaurants/reducer/reducer";
 
 export default combineReducers({
   restaurants,
