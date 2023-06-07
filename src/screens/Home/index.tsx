@@ -13,6 +13,8 @@ import { HomeProps, LoadMoreDataProps } from "./types";
 import { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, FlatList } from "react-native";
 import { useTheme } from "styled-components";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Restaurant } from "../../dtos/RestaurantDTO";
 
 const Home = ({
   navigation,
@@ -28,6 +30,9 @@ const Home = ({
     limit: 4,
   });
   const [flatListRef, setFlatListRef] = useState<FlatList>();
+  const [filteredRestaurants, setFiltredRestaurants] = useState<Restaurant[]>(
+    []
+  );
 
   const theme = useTheme();
 
@@ -40,7 +45,8 @@ const Home = ({
   };
 
   const filterRestaurants = useCallback(() => {
-    return restaurants.docs.filter((restaurant) => {
+    setIsFiltering(true);
+    const filtered = restaurants.docs.filter((restaurant) => {
       return (
         restaurant?.name?.toLowerCase().includes(filter.toLowerCase()) ||
         restaurant?.mealType?.toLowerCase().includes(filter.toLowerCase()) ||
@@ -50,7 +56,22 @@ const Home = ({
         restaurant?.timezone?.toLowerCase().includes(filter.toLowerCase())
       );
     });
+    setFiltredRestaurants(filtered);
   }, [restaurants.docs, filter]);
+
+  const storeData = async (id: string) => {
+    const value = await AsyncStorage.getItem("@favorites");
+
+    console.log({ value });
+
+    try {
+      const favorites = value ? JSON.parse(value) : [];
+      await AsyncStorage.setItem(
+        "@favorites",
+        JSON.stringify([...favorites, id])
+      );
+    } catch (err) {}
+  };
 
   const loadData = useCallback(() => {
     loadRequest(moreDataParams.offset, moreDataParams.limit);
@@ -83,7 +104,7 @@ const Home = ({
           </S.ActivityIndicatorWrapper>
         ) : (
           <S.RestaurantList
-            data={restaurants.docs}
+            data={isFiltering ? filteredRestaurants : restaurants.docs}
             refreshing={loading}
             onEndReached={loadData}
             onEndReachedThreshold={0.01}
@@ -101,7 +122,7 @@ const Home = ({
                 onPress={() => {
                   handleRestaurantDetails(item._id);
                 }}
-                toggleFavorite={() => toggleFavorite(item._id)}
+                toggleFavorite={() => storeData(item._id)}
               />
             )}
           />
